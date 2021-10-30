@@ -17,6 +17,8 @@ class Networker:
         Networker class with modules for various networking jobs
          1. scanner(ip_address, port)
          2. networkScanner(gateway_ip)
+         3. ping(ip_address)
+         4. portScanner(ip_address, port)
     """
 
     def __init__(self):
@@ -45,8 +47,48 @@ class Networker:
             for machine_id in range(1, 256):
                 self.ping(f"{ip_seq}.{machine_id}")
 
-    
+     def ping(self, ip_addr):
+        """
+            ping(ip_address)
+            ICMP pings an IP for the status of connectivity
+            ip_address can be an IP address or URL
+        """
+        icmp = IP(dst=ip_addr) / ICMP()
+        res = sr1(icmp, timeout=2, verbose=False)
+        if str(type(res)) == "<class 'NoneType'>":
+            print(
+                f"{missing} system with ip `{ip_addr}` is either down or doesn't exist"
+            )
+            return False
+        else:
+            print(f"{result}: system with ip {res.src} is live")
+            return True
 
+    def portScanner(self, ip_addr, port):
+        """
+            portScanner(ip_address, port)
+            Scans the ip_address for the status of the port passed
+            ip_address can be an IP address or URL
+            port must be an integer
+        """
+        try:
+            res = self.scanner(ip_addr, port)
+            if str(type(res)) == "<class 'NoneType'>":
+                print(f"{missing} port {port} closed on {ip_addr}", end="")
+                return False
+            else:
+                if res.sprintf("%TCP.flags%") == "SA":
+                    print(f"{result}: port {res.sport} is open on {ip_addr} :", end="")
+                    return True
+                else:
+                    print(f"{missing}: port {port} closed on {ip_addr} :", end="")
+                    return False
+
+        except socket.gaierror:
+            print(f"{error} {ip_addr} Name or service not known")
+            sys.exit()
+
+    
 
 if __name__ == "__main__":
     work = Networker()
