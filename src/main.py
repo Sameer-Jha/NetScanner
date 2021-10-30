@@ -127,6 +127,21 @@ class Networker:
             self.portScanner(ip_addr, port)
             print()
 
+    def webscan(self, URL):
+        """
+            webscan(URL)
+            Scans the URL for the status of common web hosting/service ports [80(http), 443(https), 8080(dev)]
+            ip_address can be an IP address or URL
+            port must be an integer
+        """
+        for port in [80, 443, 8080]:
+            if self.portScanner(URL, port):
+                print(f"{result} Website {URL} active")
+                return
+        print(
+            f"{info} No website running on general hosting ports\nYou may run a full scan for affirmation"
+        )
+
     
 
 if __name__ == "__main__":
