@@ -12,13 +12,16 @@ result = Style.RESET_ALL + Back.GREEN + Fore.BLACK
 info = Style.RESET_ALL + Fore.CYAN
 
 
-class Networker:
+class Netscanner:
     """
         Networker class with modules for various networking jobs
          1. scanner(ip_address, port)
          2. networkScanner(gateway_ip)
          3. ping(ip_address)
          4. portScanner(ip_address, port)
+         5. commonPortsScanner(ip_address)
+         6. allPortsScanner(ip_address)
+         7. webscan(URL)
     """
 
     def __init__(self):
@@ -145,4 +148,4 @@ class Networker:
     
 
 if __name__ == "__main__":
-    work = Networker()
+    work = Netscanner()
