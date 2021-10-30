@@ -88,6 +88,17 @@ class Networker:
             print(f"{error} {ip_addr} Name or service not known")
             sys.exit()
 
+    def allPortsScanner(self, ip_addr):
+        """
+            allPortsScanner(ip_address)
+            Scans the ip_address for the status of all possible ports
+            ip_address can be an IP address or URL
+        """
+        for port in range(1, 65536):
+            print(f"{info} {port} scanning: ", end="")
+            self.portScanner(ip_addr, port)
+            print()
+
     
 
 if __name__ == "__main__":
