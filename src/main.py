@@ -99,6 +99,34 @@ class Networker:
             self.portScanner(ip_addr, port)
             print()
 
+    def commonPortsScanner(self, ip_addr):
+        """
+            commonPortsScanner(ip_address)
+            Scans the ip_address for the status of few common ports
+            ip_address can be an IP address or URL
+        """
+        ports = {
+            21: "FTP",
+            22: "SSH",
+            25: "SMTP",
+            53: "DNS",
+            80: "HTTP",
+            110: "POP3",
+            123: "NTP",
+            143: "IMAP",
+            443: "HTTPS",
+            445: "Microsoft-ds",
+            465: "SMTPS",
+            631: "CUPS",
+            993: "IMAPS",
+            995: "POP3",
+        }
+
+        for port in ports.keys():
+            print(f"{info} {ports[port]} scanning: ", end="")
+            self.portScanner(ip_addr, port)
+            print()
+
     
 
 if __name__ == "__main__":
